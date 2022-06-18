@@ -110,7 +110,7 @@ ENGIMA_TRAFFIC_CalculateRoadWidth = {
 ENGIMA_TRAFFIC_DeleteAllWaypointsFromGroup = {
 	params ["_group"];
 	private ["_waypoints", "_i"];
-	
+	_i = 0;
 	_waypoints = waypoints _group;
 	
 	for [{_i = (count _waypoints) - 1}, {_i >= 0}, {_i = _i - 1}] do {

@@ -139,32 +139,32 @@ ENGIMA_TRAFFIC_StartTraffic = {
 	    		_calculatedMaxVehicleCount = 1;
 	    	};
 	    	
-	    	/*
-	    	_markerSize = getMarkerSize _areaMarkerName;
-	    	_avgMarkerRadius = ((_markerSize select 0) + (_markerSize select 1)) / 2;
+	    	if (_debug) then {
+				_markerSize = getMarkerSize _areaMarkerName;
+				_avgMarkerRadius = ((_markerSize select 0) + (_markerSize select 1)) / 2;
 
-			if (_avgMarkerRadius > _maxSpawnDistance) then {
-			    _calculatedMaxVehicleCount = floor (_vehicleCount / 2);
-		    	_coveredShare = 0;
-		    	
-			    {
-					private _farPos = _x select 1;
-				
-			    	_restDistance = _maxSpawnDistance - ((_farPos distance getMarkerPos _areaMarkerName) - _avgMarkerRadius);
-			    	_coveredAreaShare = _restDistance / (_maxSpawnDistance * 2);
-				    if (_coveredAreaShare > _coveredShare) then {
-					    _coveredShare = _coveredAreaShare;
-				    };
-				    
-				    sleep 0.01;
-			    } foreach (_allPlayerPositions);
-			    
-			    _calculatedMaxVehicleCount = floor (_vehicleCount * _coveredShare);
-	    	}
-	    	else {
-	    		_calculatedMaxVehicleCount = _vehicleCount;
+					if (_avgMarkerRadius > _maxSpawnDistance) then {
+					_calculatedMaxVehicleCount = floor (_vehicleCount / 2);
+					_coveredShare = 0;
+					
+					{
+							private _farPos = _x select 1;
+						
+						_restDistance = _maxSpawnDistance - ((_farPos distance getMarkerPos _areaMarkerName) - _avgMarkerRadius);
+						_coveredAreaShare = _restDistance / (_maxSpawnDistance * 2);
+						if (_coveredAreaShare > _coveredShare) then {
+							_coveredShare = _coveredAreaShare;
+						};
+						
+						sleep 0.01;
+					} foreach (_allPlayerPositions);
+					
+					_calculatedMaxVehicleCount = floor (_vehicleCount * _coveredShare);
+				}
+				else {
+					_calculatedMaxVehicleCount = _vehicleCount;
+				};
 	    	};
-	    	*/
 	    };
 	
 		// If any vehicle is too far away, delete it
@@ -175,7 +175,6 @@ ENGIMA_TRAFFIC_StartTraffic = {
 	    _deletedVehiclesCount = 0;
 		{
 	        private ["_closestUnitDistance", "_distance", "_crewUnits"];
-	        private ["_scriptHandle"];
 	        
 	        _vehicle = _x select 0;
 	        _group = _x select 1;
